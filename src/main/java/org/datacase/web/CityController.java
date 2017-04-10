@@ -19,7 +19,7 @@ public class CityController {
     private CityService cityService;
 
     @RequestMapping("/list")
-    public List<City> list() {
-        return cityService.findAll();
+    public List<City> list(String hotelName) {
+        return cityService.findAll(hotelName);
     }
 }

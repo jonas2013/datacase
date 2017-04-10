@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @Description
@@ -28,8 +29,6 @@ public class City implements Serializable {
     private String state;
     private String country;
     private String map;
-//    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    private Set<Hotel> hotels = new HashSet<>();
 
     @Override
     public String toString() {

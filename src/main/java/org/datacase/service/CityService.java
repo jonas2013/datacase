@@ -7,7 +7,6 @@ import org.datacase.model.QCity;
 import org.datacase.repository.CityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,13 +27,10 @@ public class CityService {
     private CityDao cityDao;
 
     public List<City> findAll(String hotelName) {
-        QCity cityEntity = QCity.city;
+        QCity city = QCity.city;
         JPAQuery<City> query = new JPAQuery<>(em);
-        BooleanExpression express = cityEntity.state.eq("1");
-        if (StringUtils.hasText(hotelName)) {
-            express = express.and(cityEntity.hotels.any().name.likeIgnoreCase('%' + hotelName + '%'));
-        }
-        return query.select(cityEntity).from(cityEntity).where(express).fetch();
+        BooleanExpression express = city.state.eq("1");
+        return query.select(city).from(city).where(express).fetch();
     }
 
     public List<City> findAll() {
