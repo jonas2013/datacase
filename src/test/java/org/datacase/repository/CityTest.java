@@ -5,6 +5,7 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.datacase.model.Department;
+import org.datacase.model.Employee;
 import org.datacase.model.QDepartment;
 import org.datacase.model.QEmployee;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class CityTest {
     //Repository 无缝和 Querydsl 连接
     public void findDepartment() {
         QDepartment qDepartment = QDepartment.department;
-        departmentDao.findAll(qDepartment.name.eq("IT部"));
+        departmentDao.findAll(qDepartment.name.eq("IT"));
     }
 
     @Test
@@ -45,22 +46,34 @@ public class CityTest {
         QDepartment qDepartment = QDepartment.department;
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         List<Department> persons = queryFactory.selectFrom(qDepartment)
-                .where(qDepartment.name.eq("IT部"))
+                .where(qDepartment.name.eq("IT"))
                 .fetch();
     }
 //    https://github.com/leelance/spring-boot-all/tree/master/spring-boot-jpa-querydsl
+//https://www.v2ex.com/t/350737
+//    http://blog.csdn.net/ro_wsy/article/details/51345875
+    @Test
+    // Querydsl
+    public void findEmployeeByDsl() {
+        QEmployee qEmployee = QEmployee.employee;
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        List<Employee> employee = queryFactory.selectFrom(qEmployee)
+                .where(qEmployee.name.eq("IBM"))
+                .fetch();
+    }
+
 
     @Test
     public void findByLeftJoin() {
         //动态条件
-        QDepartment qDepartment = QDepartment.department;
-        QEmployee qEmployee = QEmployee.employee;
-        Predicate predicate = qDepartment.name.eq("IT部");
+        QDepartment department = QDepartment.department;
+        QEmployee employee = QEmployee.employee;
+        Predicate predicate = department.name.eq("IT");
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        JPAQuery<Tuple> jpaQuery = queryFactory.select(QDepartment.department,QEmployee.employee)
-                .from(QDepartment.department)
-                .join(QEmployee.employee)
-                .on(qEmployee.getType().longValue().eq(qDepartment.id.longValue()));
+        JPAQuery<Tuple> jpaQuery = queryFactory.select(department.id,employee.name)
+                .from(department)
+                .leftJoin(department.employees,employee);
+//                .on(employee.department.id.longValue().eq(department.id.longValue()));
         jpaQuery.where(predicate);
         jpaQuery.fetch();
     }

@@ -25,6 +25,9 @@ public class Employee implements Serializable {
     private Long id;
     private String name;
     private BigDecimal salary;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @Override
     public String toString() {

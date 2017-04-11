@@ -25,9 +25,7 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    // 一对多:集合Set
-    @OneToMany
-    @JoinColumn(name = "type")
+    @OneToMany(mappedBy="department", cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
     private Set<Employee> employees = new HashSet<Employee>();
 
     @Override
