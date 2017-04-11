@@ -5,30 +5,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @Description
  * @Author Jonas
- * @Date 2017年04月10日
+ * @Date 2017年04月11日
  * @Version v1.0
  */
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class City implements Serializable {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String state;
-    private String country;
-    private String map;
+    private BigDecimal salary;
 
     @Override
     public String toString() {
