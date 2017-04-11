@@ -78,3 +78,7 @@ public class CityTest {
         jpaQuery.fetch();
     }
 }
+//https://github.com/querydsl/querydsl/issues/1746
+//https://github.com/querydsl/querydsl/tree/master/querydsl-examples/querydsl-example-jpa-guice/src/main/java/com/querydsl/example/jpa/model
+//https://bitbucket.org/atlassian/querydsl-examples
+//http://blog.csdn.net/ro_wsy/article/details/51345875
